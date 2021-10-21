@@ -1,0 +1,40 @@
+version: "3.1"
+
+services:
+  haproxyx:
+    image: haproxytech/haproxy-alpine:2.4
+    ports:
+      - 9810:80
+      - 9811:8404
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+  test-app1:
+    image: haproxy-test-app
+    ports:
+      - 9800:3000
+    environment:
+      - STATUS=404
+  test-app2:
+    image: haproxy-test-app
+    ports:
+      - 9801:3000
+    environment:
+      - STATUS=200
+  test-app3:
+    image: haproxy-test-app
+    ports:
+      - 9802:3000
+    environment:
+      - STATUS=500
+  test-app4:
+    image: haproxy-test-app
+    ports:
+      - 9803:3000
+    environment:
+      - STATUS=200
+  test-app5:
+    image: haproxy-test-app
+    ports:
+      - 9804:3000
+    environment:
+      - STATUS=304
